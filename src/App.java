@@ -66,13 +66,19 @@ public class App {
 	            myServices.forEach(System.out::println);
 	            System.out.println("**********************************************");
 
-                System.out.println( "Would you like to make a change to the services? (1 for yes, 2 for no)");
+                System.out.println( "Would you like to add to the services? (1 for yes, 2 for no)");
 	            String addSelection = input.nextLine(); // read user input
 
                 if("1".equals(addSelection)){
-                    System.out.println("Which service would you like to change?");
-                    myServices.forEach(System.out::println);
+                    System.out.println("Enter a service to add?");
+					Services userService = new Services(input.nextInt(), input.next(), input.nextInt());
+                    myServices.add(userService);
+					System.out.println("**************** Updated Services ****************");
+					myServices.forEach(System.out::println);
                 }
+				else if("2".equals(addSelection)){
+					System.out.println("Have a nice day.");
+				}
 	        }
 	        else if( "2".equals( selection ))
 	        {
@@ -81,6 +87,22 @@ public class App {
 	            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Specialty");
 	            myDoc.forEach(System.out::println);
 	            System.out.println("**********************************************");
+				
+
+				System.out.println( "Would you like to add to the Doctors? (1 for yes, 2 for no)");
+	            String addDoctor = input.nextLine(); // read user input
+
+
+				if("1".equals(addDoctor)){
+                    System.out.println("Enter a doctor to add?");
+					Doctor userDoctor = new Doctor(input.next(), input.next(), input.next());
+                    myDoc.add(userDoctor);
+					System.out.println("**************** Updated Doctor ****************");
+					myDoc.forEach(System.out::println);
+                }
+				else if("2".equals(addDoctor)){
+					System.out.println("Have a nice day.");
+				}
 	        }
 	
 	        else if( "3".equals( selection ))
@@ -90,6 +112,22 @@ public class App {
 	            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Doctor");
 	            myAssistant.forEach(System.out::println);
 	            System.out.println("**********************************************");
+
+				System.out.println( "Would you like to add to the Assitants? (1 for yes, 2 for no)");
+				String addAssisants = input.nextLine(); // read user input
+
+
+				if("1".equals(addAssisants)){
+                    System.out.println("Enter a Assistants to add?");
+					Assistant addAssistant = new Assistant(input.next(), input.next(), input.next());
+                    myAssistant.add(addAssistant);
+					System.out.println("**************** Updated Assitants ****************");
+					myAssistant.forEach(System.out::println);
+                }
+				else if("2".equals(addAssisants)){
+					System.out.println("Have a nice day.");
+				}
+
 	        }
 	        else if( "4".equals( selection ))
 	        {
@@ -98,6 +136,21 @@ public class App {
 	            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Doctor");
 	            myPatient.forEach(System.out::println);
 	            System.out.println("**********************************************");
+
+				System.out.println( "Would you like to add to the Patients? (1 for yes, 2 for no)");
+				String addPatients = input.nextLine(); // read user input
+
+
+				if("1".equals(addPatients)){
+                    System.out.println("Enter a Patient to add?");
+					Patient addPatient = new Patient(input.next(), input.next(), input.next());
+                    myPatient.add(addPatient);
+					System.out.println("**************** Updated Patients ****************");
+					myPatient.forEach(System.out::println);
+                }
+				else if("2".equals(addPatients)){
+					System.out.println("Have a nice day.");
+				}
 	        }
 	        else if( "0".equals( selection ))
 	        {
