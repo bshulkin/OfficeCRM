@@ -54,8 +54,8 @@ public class App {
   	  	boolean running = true;
   	  	do {
 	        // print menu of user options
-	        System.out.println( "Enter a number to view records:\n[1] Services\n[2] Doctors\n[3] Assistants\n[4] Patients\n[0] Quit");
-	        String selection = input.nextLine(); // read user input
+	        System.out.println( "Enter a number to view records:\n[1] Services, [2] Doctors, [3] Assistants, [4] Patients, [0] Quit");
+	        String selection = input.next(); // read user input
 	        
 	        // check if true
 	        if( "1".equals( selection ))
@@ -65,57 +65,155 @@ public class App {
 	            System.out.println("ID" + "\t\t" + "Service Name" + "\t\t" + "Price");
 	            myServices.forEach(System.out::println);
 	            System.out.println("**********************************************");
-
-                System.out.println( "Would you like to add to the services? (1 for yes, 2 for no, 3 to delete a record)");
-	            String addSelection = input.nextLine(); // read user input
-
-                if("1".equals(addSelection)){
-                    System.out.println("Enter a service to add? Enter in form of (ID, Service, Price)");
-					Services userService = new Services(input.nextInt(), input.next(), input.nextInt());
-                    myServices.add(userService);
-					System.out.println("**************** Updated Services ****************");
-					myServices.forEach(System.out::println);
-					break;
-                }
-
-				else if("2".equals(addSelection)){
-					System.out.println("Have a nice day.");
-					break;
-				}
-				else if("3".equals(addSelection)){
-					System.out.println("Enter a service to delete(Enter a valid index)?");
-					int index = input.nextInt();
-					myServices.remove(index);
-					System.out.println("**************** Updated Services ****************");
-					myServices.forEach(System.out::println);
-				}
-	        }
-	        else if( "2".equals( selection ))
+	            
+	            // loop services menu until user exits
+	        	boolean servicesMenu = true;
+	        	do {	
+	                System.out.println( "What would you like to do?\n[1] Add Service, [2] Edit Service, [3] Delete Service, [0] Return to Main");
+		            String addSelection = input.next(); // read user input
+	
+		            if("0".equals(addSelection)) {
+		            	servicesMenu = false;
+		            }
+		            else {
+		                if("1".equals(addSelection)){
+		                    int newID = myServices.size() + 1;
+		                    System.out.println("Enter the name of the service:");
+		                    String newName = input.next();
+		                    System.out.println("Enter the price for "+ newName + " (as an integer):");
+		                    String newPriceString = "";
+		                    boolean priceLoop = true;
+		                    do {
+			                    newPriceString = input.next();
+		                        try
+		                        {
+		                            Integer.parseInt(newPriceString);
+		                            priceLoop = false;
+		                        } catch (NumberFormatException ex)
+		                        {
+		                        	System.out.println(newPriceString + " is not an integer. Please enter an integer.");
+		                        }
+		                    } while (priceLoop);
+		                    
+		                    int newPrice = Integer.parseInt(newPriceString);
+							Services userService = new Services(newID, newName, newPrice);
+		                    myServices.add(userService);
+							System.out.println("************** Updated Services **************");
+							myServices.forEach(System.out::println);
+				            System.out.println("**********************************************");
+		                }
+						else if("2".equals(addSelection)){
+							System.out.println("This doesn't work yet.");
+						}
+						else if("3".equals(addSelection)) {
+		                    System.out.println("Enter the id of the service you want to delete:");
+		                    String deleteServiceString = "";
+		                    
+		                    int deleteServiceIndex = 0;
+		                    boolean deleteServiceLoop = true;
+		                    do {
+		                    	deleteServiceString = input.next();
+		                        try
+		                        {
+		                            deleteServiceIndex = Integer.parseInt(deleteServiceString) - 1;
+		                            if((0 > deleteServiceIndex ) || (deleteServiceIndex > myServices.size())) {
+		                            	System.out.println("That id is out of range! Select a different id.");
+		                            }
+		                            else {
+		                            deleteServiceLoop = false;
+		                            }
+		                        } catch (NumberFormatException ex)
+		                        {
+		                        	System.out.println(deleteServiceString + " is not a proper id.");
+		                        }
+		                    } while (deleteServiceLoop);
+		                    
+		                    myServices.remove(deleteServiceIndex);
+		                    
+		                    System.out.println("************** Updated Services **************");
+		                    myServices.forEach(System.out::println);
+				            System.out.println("**********************************************");
+						}
+						else {
+							System.out.println("Your response was invalid.\nPlease enter a number between 0 and 3.");
+						}
+		            }
+	        	} while(servicesMenu);
+			}
+            else if( "2".equals( selection ))
 	        {
-	            // print list of doctors
+                // print list of doctors
 	            System.out.println("**************** Doctors ****************");
 	            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Specialty");
 	            myDoc.forEach(System.out::println);
 	            System.out.println("**********************************************");
-				
 
-				System.out.println( "Would you like to add to the Doctors? (1 for yes, 2 for no)");
-	            String addDoctor = input.nextLine(); // read user input
+	            // loop doctors menu until user exits
+	        	boolean doctorsMenu = true;
+	        	do {	
+	                System.out.println( "What would you like to do?\n[1] Add Doctor, [2] Edit Doctor, [3] Delete Doctor, [0] Return to Main");
+		            String doctorInput = input.next(); // read user input
+	
+		            if("0".equals(doctorInput)) {
+		            	doctorsMenu = false;
+		            }
+		            else {
+		                if("1".equals(doctorInput)){
+		                    System.out.println("Enter the new doctor's first name:");
+                            String docFirstName = input.next();
+                            System.out.println("Enter the new doctor's last name:");
+		                    String docLastName = input.next();
+		                    System.out.println("Enter the new doctor's specialty:");
+		                    String docSpecialty = input.next();
+		                    
+                            Doctor userDoctor = new Doctor(docFirstName, docLastName, docSpecialty);
+                            myDoc.add(userDoctor);
 
-
-				if("1".equals(addDoctor)){
-                    System.out.println("Enter a doctor to add?");
-					Doctor userDoctor = new Doctor(input.next(), input.next(), input.next());
-                    myDoc.add(userDoctor);
-					System.out.println("**************** Updated Doctor ****************");
-					myDoc.forEach(System.out::println);
-					break;
-                }
-				else if("2".equals(addDoctor)){
-					System.out.println("Have a nice day.");
-				}
-				break;
-	        }
+                            
+                            System.out.println("************** Updated Doctors **************");
+                            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Specialty");
+							myDoc.forEach(System.out::println);
+				            System.out.println("**********************************************");
+		                }
+						else if("2".equals(doctorInput)){
+							System.out.println("This doesn't work yet.");
+						}
+						else if("3".equals(doctorInput)) {
+		                    System.out.println("Enter the id of the doctor you want to delete:");
+		                    String deleteDoctorString = "";
+		                    
+		                    int deleteDoctorIndex = 0;
+		                    boolean deleteDoctorLoop = true;
+		                    do {
+		                    	deleteDoctorString = input.next();
+		                        try
+		                        {
+		                            deleteDoctorIndex = Integer.parseInt(deleteDoctorString) - 1;
+		                            if((0 > deleteDoctorIndex ) || (deleteDoctorIndex > myDoc.size())) {
+		                            	System.out.println("That id is out of range! Select a different id.");
+		                            }
+		                            else {
+		                            deleteDoctorLoop = false;
+		                            }
+		                        } catch (NumberFormatException ex)
+		                        {
+		                        	System.out.println(deleteDoctorString + " is not a proper id.\n");
+		                        }
+		                    } while (deleteDoctorLoop);
+		                    
+		                    myDoc.remove(deleteDoctorIndex);
+		                    
+		                    System.out.println("************** Updated Doctors **************");
+                            System.out.println("First Name" + "\t\t" + "Last Name" + "\t\t" + "Specialty");
+		                    myDoc.forEach(System.out::println);
+				            System.out.println("**********************************************");
+						}
+						else {
+							System.out.println("Your response was invalid.\nPlease enter a number between 0 and 3.");
+						}
+		            }
+	        	} while(doctorsMenu);
+			}
 	
 	        else if( "3".equals( selection ))
 	        {
@@ -135,12 +233,10 @@ public class App {
                     myAssistant.add(addAssistant);
 					System.out.println("**************** Updated Assitants ****************");
 					myAssistant.forEach(System.out::println);
-					break;
                 }
 				else if("2".equals(addAssisants)){
 					System.out.println("Have a nice day.");
 				}
-				break;
 
 	        }
 	        else if( "4".equals( selection ))
@@ -161,12 +257,10 @@ public class App {
                     myPatient.add(addPatient);
 					System.out.println("**************** Updated Patients ****************");
 					myPatient.forEach(System.out::println);
-					break;
                 }
 				else if("2".equals(addPatients)){
 					System.out.println("Have a nice day.");
 				}
-				break;
 	        }
 	        else if( "0".equals( selection ))
 	        {
