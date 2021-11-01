@@ -21,6 +21,10 @@ public class Services {
         price = newPrice;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getFullService(){
         String fullService;
         fullService = id + " " + name + " " + price;
