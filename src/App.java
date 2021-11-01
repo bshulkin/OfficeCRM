@@ -65,6 +65,14 @@ public class App {
 	            System.out.println("ID" + "\t\t" + "Service Name" + "\t\t" + "Price");
 	            myServices.forEach(System.out::println);
 	            System.out.println("**********************************************");
+
+                System.out.println( "Would you like to make a change to the services? (1 for yes, 2 for no)");
+	            String addSelection = input.nextLine(); // read user input
+
+                if("1".equals(addSelection)){
+                    System.out.println("Which service would you like to change?");
+                    myServices.forEach(System.out::println);
+                }
 	        }
 	        else if( "2".equals( selection ))
 	        {

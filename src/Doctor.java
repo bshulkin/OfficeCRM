@@ -23,6 +23,6 @@ public class Doctor extends Person {
     
 
     public String toString(){
-        return String.format("First Name: " + fName + "\t\t" + "Last Name: " + lName + "\t\t" + "Specialization: " + specialization);
+        return String.format(fName + "\t\t" + lName + "\t\t" + specialization);
     }
 }
